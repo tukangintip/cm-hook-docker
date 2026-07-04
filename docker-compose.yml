@@ -1,0 +1,20 @@
+services:
+  webhook-chatmatter:
+    build: .
+    image: webhook-chatmatter:latest
+    container_name: webhook-chatmatter
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEBHOOK_PORT:-9091}:${WEBHOOK_PORT:-9091}"
+    env_file:
+      - .env
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:${WEBHOOK_PORT:-9091}/health').status==200 else 1)\" || exit 1",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

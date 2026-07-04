@@ -1,0 +1,17 @@
+# Environment / secrets
+.env
+telegram-credentials
+example-webhook-payload.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
